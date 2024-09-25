@@ -7,4 +7,9 @@ interface SignupFormData {
   role: string;
 }
 
+export interface LoginFormData {
+  password: string;
+  email: string;
+}
+
 export default SignupFormData;

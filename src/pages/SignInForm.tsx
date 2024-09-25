@@ -146,6 +146,7 @@ const SignInForm: React.FC = () => {
       </div>
 
       {errors && <p className="text-red-500 mb-4">{errors}</p>}
+      {message && <p className="text-red-500 mb-4">{message}</p>}
 
       <button
         type="submit"

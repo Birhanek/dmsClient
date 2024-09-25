@@ -1,12 +1,7 @@
 import React from "react";
-import SignInForm from "./SignInForm";
 
 const Home = () => {
-  return (
-    <div className=" h-80">
-      <SignInForm />
-    </div>
-  );
+  return <div className="mt-1">Welcome to the theater of dreams</div>;
 };
 
 export default Home;
