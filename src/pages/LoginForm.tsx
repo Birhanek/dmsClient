@@ -1,5 +1,6 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import { LoginFormData } from "../components/dataInterface";
+import { toast } from "react-toastify";
 import axios from "axios";
 
 const LoginForm = () => {
@@ -26,7 +27,14 @@ const LoginForm = () => {
         "http://127.0.0.1:5000/login",
         loginData
       );
-      setMessage(response.data.message);
+
+      if (response.data.ok) {
+        setMessage(response.data.message);
+        toast.success(message);
+      } else {
+        setMessage(response.data.error);
+        toast.error(message);
+      }
     } catch (error) {
       setErrors("Failed to sign up. Try again later.");
       console.error("Error signing up:", error);
@@ -63,10 +71,9 @@ const LoginForm = () => {
           className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
         />
         {errors && <p className="text-red-500 mb-4">{errors}</p>}
-        {message && <p className="text-red-500 mb-4">{message}</p>}
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white py-4 rounded hover:bg-blue-600 transition duration-300"
+          className="w-full bg-blue-500 text-white py-4 mt-5 rounded hover:bg-blue-600 transition duration-300"
         >
           Login
         </button>

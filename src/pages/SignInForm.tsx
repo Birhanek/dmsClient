@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import SignupFormData from "../components/dataInterface";
+import { toast } from "react-toastify";
+
 import axios from "axios";
 
 const SignInForm: React.FC = () => {
@@ -41,14 +43,15 @@ const SignInForm: React.FC = () => {
       try {
         const response = await axios.post(
           "http://127.0.0.1:5000/signup",
-          formData,
-          {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
+          formData
         );
-        setMessage(response.data.message); // display success massage
+        if (response.data.ok) {
+          setMessage(response.data.message); // display success massage
+          toast.success(message);
+        } else {
+          setMessage(response.data.error);
+          toast.error(response.data.error);
+        }
       } catch (error) {
         setErrors("Failed to sign up. Try again later.");
         console.error("Error signing up:", error);
@@ -146,7 +149,6 @@ const SignInForm: React.FC = () => {
       </div>
 
       {errors && <p className="text-red-500 mb-4">{errors}</p>}
-      {message && <p className="text-red-500 mb-4">{message}</p>}
 
       <button
         type="submit"
