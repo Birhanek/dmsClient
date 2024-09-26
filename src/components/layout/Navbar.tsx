@@ -1,33 +1,20 @@
-import React, { ChangeEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
-  const navigate = useNavigate();
-  const [selectedOption, setSelectedOption] = useState<string>("");
-
-  const selectOptionChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const selectedValue = e.target.value;
-    setSelectedOption(selectedValue);
-    navigate(selectedOption);
-  };
-
   return (
-    <nav className="bg-blue-600 p-4">
+    <nav className="bg-slate-100 p-4 sticky top-0 left-0">
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
-        <div className="text-white text-2xl font-bold">Dream dMs</div>
+        <div className="text-slate-500 text-2xl font-bold">Dream dMs</div>
 
         {/* Navigation Links */}
-        <select
-          name="role"
-          value={selectedOption}
-          onChange={selectOptionChange}
-          required
-          className="p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+        <NavLink
+          to="/login"
+          className=" w-auto p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500 hover:bg-orange-600 hover:text-white"
         >
-          <option value="/login">SignIn</option>
-          <option value="/signup">SignUp</option>
-        </select>
+          SignIn
+        </NavLink>
       </div>
     </nav>
   );

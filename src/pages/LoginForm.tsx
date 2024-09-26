@@ -2,6 +2,8 @@ import React, { ChangeEvent, FormEvent, useState } from "react";
 import { LoginFormData } from "../components/dataInterface";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { NavLink } from "react-router-dom";
+import GoogleAuth from "../components/authentication/GoogleAuth";
 
 const LoginForm = () => {
   const [loginData, setLoginData] = useState<LoginFormData>({
@@ -27,7 +29,7 @@ const LoginForm = () => {
         "http://127.0.0.1:5000/login",
         loginData
       );
-
+      console.log(response);
       if (response.data.ok) {
         setMessage(response.data.message);
         toast.success(message);
@@ -46,6 +48,10 @@ const LoginForm = () => {
       className="max-w-lg mx-auto p-8 bg-white rounded shadow-md my-2"
     >
       <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
+      <GoogleAuth />
+      <p className=" italic text-center w-full py-4 text-slate-400">
+        ----- or -----
+      </p>
       <div className="mb-4">
         <label className="block text-gray-700 font-semibold mb-2">Email:</label>
         <input
@@ -77,6 +83,13 @@ const LoginForm = () => {
         >
           Login
         </button>
+
+        <p className="border-t border-slate-700 mt-3 italic">
+          Don't you have account?{" "}
+          <NavLink to="/signup" className="text-blue-800 hover:underline">
+            Create Account
+          </NavLink>
+        </p>
       </div>
     </form>
   );
