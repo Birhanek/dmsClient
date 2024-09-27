@@ -8,6 +8,7 @@ import SignInForm from "./pages/SignInForm";
 import Profile from "./pages/Profile";
 import { AuthProvider } from "./components/hooks/hooks";
 import ProtectedRoute from "./components/authentication/protectedRoute";
+import Logout from "./pages/Logout";
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
             <Route path="/login" element={<LoginForm />} />
             <Route path="/signup" element={<SignInForm />} />
             <Route
-              path="/proifle"
+              path="/profile"
               element={
                 <ProtectedRoute>
                   <Profile />
