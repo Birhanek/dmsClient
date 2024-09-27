@@ -5,19 +5,32 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
 import LoginForm from "./pages/LoginForm";
 import SignInForm from "./pages/SignInForm";
+import Profile from "./pages/Profile";
+import { AuthProvider } from "./components/hooks/hooks";
+import ProtectedRoute from "./components/authentication/protectedRoute";
 
 function App() {
   return (
     <div className=" bg-slate-100">
-      <Router>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<LoginForm />} />
-          <Route path="/signup" element={<SignInForm />} />
-        </Routes>
-      </Router>
-      <Home />
+      <AuthProvider>
+        <Router>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="/signup" element={<SignInForm />} />
+            <Route
+              path="/proifle"
+              element={
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
+        </Router>
+        <Home />
+      </AuthProvider>
     </div>
   );
 }

@@ -1,18 +1,21 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { LoginFormData } from "../components/dataInterface";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
 import GoogleAuth from "../components/authentication/GoogleAuth";
+import { useAuth } from "../components/hooks/hooks";
 
 const LoginForm = () => {
+  const navigate = useNavigate();
+  const { login, user, message } = useAuth();
   const [loginData, setLoginData] = useState<LoginFormData>({
     email: "",
     password: "",
   });
 
   const [errors, setErrors] = useState<string>("");
-  const [message, setMessage] = useState<string>("");
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setLoginData({
@@ -25,18 +28,24 @@ const LoginForm = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(
-        "http://127.0.0.1:5000/login",
-        loginData
-      );
-      console.log(response);
-      if (response.data.ok) {
-        setMessage(response.data.message);
-        toast.success(message);
-      } else {
-        setMessage(response.data.error);
-        toast.error(message);
-      }
+      // const response = await axios.post(
+      //   "http://127.0.0.1:5000/login",
+      //   loginData
+      // );
+      // console.log(response);
+      // if (response.data.ok) {
+      //   setMessage(response.data.message);
+      //   toast.success(message);
+      //   navigate("/profile");
+      // } else {
+      //   setMessage(response.data.error);
+      //   toast.error(message);
+      // }
+      console.log("we are here");
+      await login(loginData);
+      console.log(user);
+      toast.success(message?.message);
+      navigate("/profile");
     } catch (error) {
       setErrors("Failed to sign up. Try again later.");
       console.error("Error signing up:", error);

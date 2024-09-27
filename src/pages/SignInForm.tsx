@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import SignupFormData from "../components/dataInterface";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 
@@ -45,7 +46,6 @@ const SignInForm: React.FC = () => {
           "http://127.0.0.1:5000/signup",
           formData
         );
-        console.log(response);
         if (response.data.ok) {
           setMessage(response.data.message); // display success massage
           toast.success(message);
