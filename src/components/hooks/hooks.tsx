@@ -6,6 +6,8 @@ import {
   FC,
   useEffect,
 } from "react";
+import { signInWithPopup, signOut, User } from "firebase/auth";
+import { auth, googleProvider } from "../firebase";
 import { IMessage, IUser, LoginFormData } from "../dataInterface";
 import axios from "axios";
 import { AuthContextType } from "../dataInterface";
@@ -33,6 +35,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<IUser | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [message, setMessage] = useState<IMessage | undefined>(undefined);
+  const [isWithGoogleSignIn, setIsWithGoogleSignIn] = useState<boolean>(false);
 
   // Watch for changes to `user` and `isAuthenticated` and log the updated values
   useEffect(() => {
@@ -42,13 +45,14 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     if (isAuthenticated) {
       console.log("User is authenticated:", isAuthenticated);
     }
-  }, [user, isAuthenticated]);
+  }, [user, isAuthenticated, isWithGoogleSignIn]);
   // Function to log in
   const login = async (obj: LoginFormData) => {
     try {
       const response = await axios.post("http://127.0.0.1:5000/login", obj, {
         withCredentials: true,
       });
+
       if (response.data.ok) {
         const data = await response.data.data;
         setUser(data); // Set the user data from the database
@@ -68,6 +72,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
         withCredentials: true,
       });
       console.log(response.data.message);
+
       if (response.data.ok) {
         setUser(null);
         setIsAuthenticated(false);
@@ -77,9 +82,47 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  // Function to login through Google account
+  const signInWithGoogleAccount = async () => {
+    try {
+      const response = await signInWithPopup(auth, googleProvider);
+      if (response.user) {
+        setUser({
+          first_name: response.user.displayName,
+          email: response.user.email,
+          id: response.user.uid,
+          last_name: response.user.displayName,
+          role: "user",
+        });
+        setIsAuthenticated(true);
+        setIsWithGoogleSignIn(true);
+      }
+    } catch (error) {
+      console.error("Login failed:", error);
+      setIsAuthenticated(false);
+    }
+  };
+
+  const signOutWithGoogle = async () => {
+    try {
+      await signOut(auth);
+      setIsWithGoogleSignIn(false);
+    } catch (error) {
+      console.log("", error);
+    }
+  };
   return (
     <AuthContext.Provider
-      value={{ user, message, isAuthenticated, login, logout }}
+      value={{
+        user,
+        message,
+        isAuthenticated,
+        login,
+        logout,
+        signInWithGoogleAccount,
+        isWithGoogleSignIn,
+        signOutWithGoogle,
+      }}
     >
       {children}
     </AuthContext.Provider>

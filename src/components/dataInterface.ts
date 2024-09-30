@@ -13,11 +13,11 @@ export interface LoginFormData {
 }
 
 export type IUser = {
-  id: number;
+  id: number | string;
   role: string;
-  first_name: string;
-  last_name: string;
-  email: string;
+  first_name: string | null;
+  last_name: string | null;
+  email: string | null;
 };
 
 export type IMessage = {
@@ -31,6 +31,9 @@ export interface AuthContextType {
   login: (obj: LoginFormData) => Promise<void>;
   logout: () => void;
   message: IMessage | undefined;
+  signInWithGoogleAccount: () => void;
+  isWithGoogleSignIn: boolean;
+  signOutWithGoogle: () => void;
 }
 
 export default SignupFormData;

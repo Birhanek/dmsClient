@@ -37,7 +37,9 @@ const LoginForm = () => {
   // Use useEffect to navigate after successful login
   useEffect(() => {
     if (user && isAuthenticated) {
-      navigate("/profile"); // Navigate to the profile page once authenticated
+      navigate("/profile", {
+        state: user,
+      }); // Navigate to the profile page once authenticated
     }
   }, [user, isAuthenticated, navigate]); // Add `navigate` as a dependency for safety
 
