@@ -35,5 +35,8 @@ export interface AuthContextType {
   isWithGoogleSignIn: boolean;
   signOutWithGoogle: () => void;
 }
-
+export interface DiagonalCutImageProps {
+  src: string;
+  alt?: string;
+}
 export default SignupFormData;

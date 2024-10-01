@@ -8,11 +8,11 @@ import SignInForm from "./pages/SignInForm";
 import Profile from "./pages/Profile";
 import { AuthProvider } from "./components/hooks/hooks";
 import ProtectedRoute from "./components/authentication/protectedRoute";
-import Logout from "./pages/Logout";
+import Footer from "./components/layout/Footer";
 
 function App() {
   return (
-    <div className=" bg-slate-100">
+    <div className="">
       <AuthProvider>
         <Router>
           <Navbar />
@@ -29,8 +29,8 @@ function App() {
               }
             />
           </Routes>
+          <Footer />
         </Router>
-        <Home />
       </AuthProvider>
     </div>
   );

@@ -6,7 +6,7 @@ import {
   FC,
   useEffect,
 } from "react";
-import { signInWithPopup, signOut, User } from "firebase/auth";
+import { signInWithPopup, signOut } from "firebase/auth";
 import { auth, googleProvider } from "../firebase";
 import { IMessage, IUser, LoginFormData } from "../dataInterface";
 import axios from "axios";
@@ -58,6 +58,7 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
         setUser(data); // Set the user data from the database
         setMessage(response.data.message); // Set the message data from the database
         setIsAuthenticated(true);
+        setIsWithGoogleSignIn(false);
       }
     } catch (error) {
       console.error("Login failed:", error);
@@ -103,10 +104,12 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  //  sign out from google account
   const signOutWithGoogle = async () => {
     try {
       await signOut(auth);
       setIsWithGoogleSignIn(false);
+      setIsAuthenticated(false);
     } catch (error) {
       console.log("", error);
     }

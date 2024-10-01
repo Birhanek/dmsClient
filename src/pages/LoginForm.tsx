@@ -5,6 +5,8 @@ import { toast } from "react-toastify";
 import { NavLink } from "react-router-dom";
 import GoogleAuth from "../components/authentication/GoogleAuth";
 import { useAuth } from "../components/hooks/hooks";
+import goodConsultation from "../assets/good-consultation.jpeg";
+import RectangularCut from "../helper/RectangularCut";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -44,55 +46,61 @@ const LoginForm = () => {
   }, [user, isAuthenticated, navigate]); // Add `navigate` as a dependency for safety
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="max-w-lg mx-auto p-8 bg-white rounded shadow-md my-2"
-    >
-      <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
-      <GoogleAuth />
-      <p className=" italic text-center w-full py-4 text-slate-400">
-        ----- or -----
-      </p>
-      <div className="mb-4">
-        <label className="block text-gray-700 font-semibold mb-2">Email:</label>
-        <input
-          type="email"
-          name="email"
-          value={loginData.email}
-          onChange={handleChange}
-          required
-          className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-        />
-      </div>
-
-      <div className="mb-4">
-        <label className="block text-gray-700 font-semibold mb-2">
-          Password:
-        </label>
-        <input
-          type="password"
-          name="password"
-          value={loginData.password}
-          onChange={handleChange}
-          required
-          className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-        />
-        {errors && <p className="text-red-500 mb-4">{errors}</p>}
-        <button
-          type="submit"
-          className="w-full bg-blue-500 text-white py-4 mt-5 rounded hover:bg-blue-600 transition duration-300"
-        >
-          Login
-        </button>
-
-        <p className="border-t border-slate-700 mt-3 italic">
-          Don't you have account?{" "}
-          <NavLink to="/signup" className="text-blue-800 hover:underline">
-            Create Account
-          </NavLink>
+    <section className=" flex flex-col md:flex-row lg:flex-row xl:flex-row">
+      <RectangularCut src={goodConsultation} alt="Good consultation" />
+      <form
+        onSubmit={handleSubmit}
+        className="max-w-lg mx-auto p-8 bg-white rounded shadow-md my-2"
+      >
+        <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
+        <GoogleAuth />
+        <p className=" italic text-center w-full py-4 text-slate-400">
+          ----- or -----
         </p>
-      </div>
-    </form>
+        <div className="mb-4">
+          <label className="block text-gray-700 font-semibold mb-2">
+            Email:
+          </label>
+          <input
+            type="email"
+            name="email"
+            value={loginData.email}
+            onChange={handleChange}
+            required
+            className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+          />
+        </div>
+
+        <div className="mb-4">
+          <label className="block text-gray-700 font-semibold mb-2">
+            Password:
+          </label>
+          <input
+            type="password"
+            name="password"
+            value={loginData.password}
+            onChange={handleChange}
+            required
+            className="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+          />
+          {errors && <p className="text-red-500 mb-4">{errors}</p>}
+          <button
+            type="submit"
+            className="w-full bg-blue-500 text-white py-4 mt-5 rounded hover:bg-blue-600 transition duration-300"
+          >
+            Login
+          </button>
+
+          <p className="border-t border-slate-700 mt-3 italic">
+            Don't you have account?{" "}
+            <NavLink to="/signup" className="text-blue-800 hover:underline">
+              Create Account
+            </NavLink>
+          </p>
+        </div>
+      </form>
+      <RectangularCut src={goodConsultation} alt="Good consultation" />
+    </section>
   );
 };
 
