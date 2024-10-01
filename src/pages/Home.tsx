@@ -7,7 +7,7 @@ import ConsultancySteps from "../components/ConsultancySteps";
 
 const Home = () => {
   return (
-    <div className=" relative">
+    <div className=" relative z-40">
       <DiagonalCutImage
         src={`${process.env.PUBLIC_URL}/overseas-education-consultants-hyderabad.webp`}
         alt="oversea education consultancy"
