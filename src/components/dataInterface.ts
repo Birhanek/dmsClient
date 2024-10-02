@@ -39,4 +39,7 @@ export interface DiagonalCutImageProps {
   src: string;
   alt?: string;
 }
+export interface CalloutProps {
+  title: string;
+}
 export default SignupFormData;

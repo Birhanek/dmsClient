@@ -7,6 +7,7 @@ import GoogleAuth from "../components/authentication/GoogleAuth";
 import { useAuth } from "../components/hooks/hooks";
 import goodConsultation from "../assets/good-consultation.jpeg";
 import RectangularCut from "../helper/RectangularCut";
+import Callout from "../helper/Callout";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -46,15 +47,22 @@ const LoginForm = () => {
   }, [user, isAuthenticated, navigate]); // Add `navigate` as a dependency for safety
 
   return (
-    <section className=" flex flex-col md:flex-row lg:flex-row xl:flex-row">
-      <RectangularCut src={goodConsultation} alt="Good consultation" />
+    <section
+      className=" flex flex-col justify-between md:flex-row lg:flex-row xl:flex-row"
+      style={{
+        backgroundImage: `url(${goodConsultation})`,
+      }}
+    >
       <form
         onSubmit={handleSubmit}
-        className="max-w-lg mx-auto p-8 bg-white rounded shadow-md my-2"
+        className="max-w-lg w-full flex flex-col mx-auto p-8 bg-white rounded shadow-md my-2"
       >
-        <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
+        <Callout title="Your passport to academic success." />
+        <h2 className="text-2xl font-bold text-gray-700 mb-6 text-center">
+          Login
+        </h2>
         <GoogleAuth />
-        <p className=" italic text-center w-full py-4 text-slate-400">
+        <p className=" italic text-center w-full py-4 text-gray-700">
           ----- or -----
         </p>
         <div className="mb-4">

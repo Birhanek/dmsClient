@@ -65,11 +65,15 @@ const SignInForm: React.FC = () => {
     }
   };
   return (
-    <section className="flex flex-col justify-between md:flex-row xl:flex-row lg:flex-row">
-      <RectangularCut src={goodConsultation} alt="Good consultation" />
+    <section
+      className="flex flex-col justify-center md:flex-row xl:flex-row lg:flex-row"
+      style={{
+        backgroundImage: `url(${goodConsultation})`,
+      }}
+    >
       <form
         onSubmit={handleSubmit}
-        className="max-w-lg mx-auto p-8 bg-white rounded shadow-md"
+        className="max-w-lg w-full mx-auto mt-1 mb-1 p-8 bg-white rounded shadow-md"
       >
         <h2 className="text-2xl font-bold mb-6 text-center">Sign Up</h2>
 
@@ -169,7 +173,6 @@ const SignInForm: React.FC = () => {
           Sign Up
         </button>
       </form>
-      <RectangularCut src={goodConsultation} alt="Good consultation" />
     </section>
   );
 };
